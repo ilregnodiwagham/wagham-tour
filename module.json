@@ -1,0 +1,35 @@
+{
+    "name": "wagham-tour",
+    "title": "Wagham's Introductory Tour",
+    "description": "A module to add an introductory tour for new Wagham players",
+    "authors": [
+      {
+        "name": "Il Regno di Wagham",
+        "url": "https://ilregnodiwagham.it"
+      }, 
+      {
+        "name": "TestaDiRapa",
+        "url": "https://github.com/TestaDiRapa"
+      }
+    ],
+    "version": "0.0.1",
+    "compatibility": [
+        {
+          "minimum": "9",
+          "verified": "9"
+        }
+    ],
+    "languages": [
+        {
+          "lang": "it",
+          "name": "Italian",
+          "path": "languages/it.json"
+        }
+    ],
+    "styles": [
+        "styles/wagham-tour.css"
+    ],
+    "scripts": [
+        "scripts/wagham-tour.js"
+    ]
+}
