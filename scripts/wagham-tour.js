@@ -67,9 +67,9 @@ const getWelcomeTourConfig = (actorId) => { return {
             content: "Da qui possiamo aprire Plutonium Import ed importare cio' che ci serve, sia in fase di creazione che a livelli piu' alti."
         },
         {
-            selector: ".w-100.ve-flex-v-center:nth-child(4)",
+            selector: ".w-100.ve-flex-v-center:nth-child(12)",
             type: STEP_TYPE.Show,
-            content: "Cliccando qui abbiamo a disposizione un fottio di risorse da cui attingere per la nostra classe, ma a noi interessa solo '5etools' e 'Wagham Compendium'"
+            content: "Cliccando qui abbiamo a disposizione un fottio di risorse da cui attingere per la nostra razza, ma a noi interessa solo '5etools' e 'Wagham Compendium'"
         },
         {
             selector: '.btn.btn-5et.w-100.mr-2',
@@ -81,7 +81,12 @@ const getWelcomeTourConfig = (actorId) => { return {
             selector: "",
             type: STEP_TYPE.Show,
             content: "Addesso possiamo selezionare la nostra razza, ricercandola attraverso la barra di ricerca e assicurandoci che sia la versione giusta"
-        },       
+        },
+	{
+            selector: ".btn-5et",
+            type: STEP_TYPE.Show,
+            content: "Cliccando il Tickbox sulla razza che c'interessa e poi import seguiamo gli step automatizzati e ripetiamo la stessa procedura per la Classe sotto 'Classes '"
+        },
         {
             selector: "",
             type: STEP_TYPE.Show,
