@@ -142,7 +142,7 @@ class WaghamTour extends Tour {
 	}
 
     async _executeAction() {
-        if (this.currentStep.type === STEP_TYPE.Click) {
+        if (this.currentStep.type === STEP_TYPE.Click && !!this._currentSelector) {
             document.querySelector(this._currentSelector).click();
             await this.waitForElement(this._currentSelector, 5000);
         } else if (this.currentStep.type === STEP_TYPE.OpenSheet) {
@@ -150,11 +150,9 @@ class WaghamTour extends Tour {
             if (!!this.currentStep.waitForElement) {
                 await this.waitForElement(this.currentStep.waitForElement, 5000);
             }
-        } else if (this.currentStep.type === STEP_TYPE.OnMouseUp) {
+        } else if (this.currentStep.type === STEP_TYPE.OnMouseUp && !!this._currentSelector) {
             const element = document.querySelector(this._currentSelector)
             const offset = $(element).offset()
-            console.log(element)
-            console.log(offset)
             if (!!element && !!offset) {
                 $(element).trigger(
                     jQuery.Event("mouseup", {
