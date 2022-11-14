@@ -67,9 +67,10 @@ const getWelcomeTourConfig = (actorId) => { return {
             content: "Da qui possiamo aprire Plutonium Import ed importare cio' che ci serve, sia in fase di creazione che a livelli piu' alti."
         },
         {
-            selector: ".w-100.ve-flex-v-center:nth-child(4)",
-            type: STEP_TYPE.Show,
-            content: "Cliccando qui abbiamo a disposizione un fottio di risorse da cui attingere per la nostra classe, ma a noi interessa solo '5etools' e 'Wagham Compendium'"
+            selector: ".w-100.ve-flex-v-center:nth-child(12) > button:first-child",
+            type: STEP_TYPE.Click,
+            actionOrder: STEP_ACTION_ORDER.Pre,
+            content: "Cliccando qui abbiamo a disposizione un fottio di risorse da cui attingere per la nostra razza, ma a noi interessa solo '5etools' e 'Wagham Compendium'"
         },
         {
             selector: '.btn.btn-5et.w-100.mr-2',
@@ -80,11 +81,26 @@ const getWelcomeTourConfig = (actorId) => { return {
         {
             selector: "",
             type: STEP_TYPE.Show,
+            waitForElement: "div.no-shrink.ve-flex-v-center > button.btn-5et:first-child",
             content: "Addesso possiamo selezionare la nostra razza, ricercandola attraverso la barra di ricerca e assicurandoci che sia la versione giusta"
-        },       
-        {
-            selector: "",
+        },
+	    {
+            selector: "div.no-shrink.ve-flex-v-center > button.btn-5et:first-child",
             type: STEP_TYPE.Show,
+            content: "Cliccando il Tickbox sulla razza che c'interessa e poi import seguiamo gli step automatizzati e ripetiamo la stessa procedura per la Classe sotto 'Classes & Subclasses' "
+        },
+        {
+            selector: "div[id^='app'] header.window-header.flexrow.draggable.resizable > a.header-button.close",
+            type: STEP_TYPE.Click,
+            actionOrder: STEP_ACTION_ORDER.Post,
+            forceCenter: true,
+            content: "Da qui potrai importarti tutto ciò che ti serve: Razza; Classe; Features; e Background. il tutto automatizzato se riesci a seguire i passaggi che ti vengono sparaflashati in faccia."
+        },
+        {
+            selector: "div[id^='app'] header.window-header.flexrow.draggable.resizable > a.header-button.close",
+            type: STEP_TYPE.Click,
+            actionOrder: STEP_ACTION_ORDER.Post,
+            forceCenter: true,
             content: "Bravo coglione ora hai importato una sola cosa di settordici ed io ho buttato tutta una cazzo di giornata dietro a sta merda mortacci tua, se sento anche solo una domanda su come si fa ti cerco e ti picchio deficiente."
         }
     ]
@@ -142,7 +158,7 @@ class WaghamTour extends Tour {
 	}
 
     async _executeAction() {
-        if (this.currentStep.type === STEP_TYPE.Click) {
+        if (this.currentStep.type === STEP_TYPE.Click && !!this._currentSelector) {
             document.querySelector(this._currentSelector).click();
             await this.waitForElement(this._currentSelector, 5000);
         } else if (this.currentStep.type === STEP_TYPE.OpenSheet) {
@@ -150,11 +166,9 @@ class WaghamTour extends Tour {
             if (!!this.currentStep.waitForElement) {
                 await this.waitForElement(this.currentStep.waitForElement, 5000);
             }
-        } else if (this.currentStep.type === STEP_TYPE.OnMouseUp) {
+        } else if (this.currentStep.type === STEP_TYPE.OnMouseUp && !!this._currentSelector) {
             const element = document.querySelector(this._currentSelector)
             const offset = $(element).offset()
-            console.log(element)
-            console.log(offset)
             if (!!element && !!offset) {
                 $(element).trigger(
                     jQuery.Event("mouseup", {
